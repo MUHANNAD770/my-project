@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ar">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="./node_modules/bootstrap/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="./node_modules/bootstrap-icons/font/bootstrap-icons.css"
+    />
+    <style>
+      #addPost {
+        width: 40px;
+        height: 40px;
+        background-color: green;
+        color: white;
+        position: fixed;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 35px;
+        box-shadow: 0px 2px 5px black;
+        right: 30px;
+        bottom: 40px;
+        font-size: 35px;
+        cursor: pointer;
+      }
+      #liveAlertPlaceholder {
+        z-index: 9999;
+        position: fixed;
+        bottom: 11px;
+        right: 70px;
+      }
+    </style>
+  </head>
+  <body style="background-color: rgb(230, 225, 225)">
+    <!-- aler t-->
+    <div class="container" id="liveAlertPlaceholder"></div>
+    <!--/ alert /-->
+
+    <!-- login modal-->
+    <div
+      class="modal fade"
+      id="loginModal"
+      tabindex="-1"
+      aria-labelledby="loginModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="loginModalLabel">Log in</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="username" class="col-form-label">Username:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="username"
+                  value="muhannad"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="password" class="col-form-label">Password:</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="password"
+                  value="123456"
+                />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button onclick="getlogin()" type="button" class="btn btn-primary">
+              login
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--/ login  modal  /-->
+
+    <!-- rejester modal-->
+    <div
+      class="modal fade"
+      id="rejesterModal"
+      tabindex="-1"
+      aria-labelledby="rejesterModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="rejesterModalLabel">Rejester</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="image-pr" class="col-form-label">Image:</label>
+                <input type="file" class="form-control" id="image-pr" />
+              </div>
+              <div class="mb-3">
+                <label for="username1" class="col-form-label">Username:</label>
+                <input type="text" class="form-control" id="username1" />
+              </div>
+              <div class="mb-3">
+                <label for="password1" class="col-form-label">Password:</label>
+                <input type="password" class="form-control" id="password1" />
+              </div>
+              <div class="mb-3">
+                <label for="name" class="col-form-label">Name:</label>
+                <input type="text" class="form-control" id="name" />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              onclick="getRejester()"
+              type="button"
+              class="btn btn-primary"
+            >
+              Rejester
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--/ rejester  modal  /-->
+    <!--navbar container-->
+    <div class="container">
+      <div class="d-flex justify-content-center">
+        <div class="col-9">
+          <nav class="navbar navbar-expand-lg bg-body-tertiary pt-2">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="./home.html">Navbar</a>
+              <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav"
+                aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#"
+                      >Home</a
+                    >
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">profile</a>
+                  </li>
+                </ul>
+                <div id="logeed" class="w-100 text-end">
+                  <button
+                    id="loginBtn"
+                    data-bs-toggle="modal"
+                    data-bs-target="#loginModal"
+                    type="button"
+                    class="btn btn-outline-success"
+                  >
+                    login
+                  </button>
+                  <button
+                    id="rejesterBtn"
+                    data-bs-toggle="modal"
+                    data-bs-target="#rejesterModal"
+                    type="button"
+                    class="btn btn-outline-success"
+                  >
+                    rejester
+                  </button>
+                </div>
+                <div id="logout" class="w-100 text-end">
+                  <img
+                    id="image-profile"
+                    class="rounded-circle border border-success"
+                    style="width: 40px; height: 40px"
+                    src="./photo/pexels-francesco-ungaro-1525041.jpg"
+                    alt=""
+                  />
+                  <b id="user-profile">@muhannad</b>
+
+                  <button
+                    onclick="loogOut()"
+                    id="logout"
+                    type="button"
+                    class="btn btn-outline-danger"
+                  >
+                    logout
+                  </button>
+                </div>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </div>
+    <!--/  navbar container  /-->
+
+    <!--main content-->
+    <div class="container" style="width: 70%">
+      <div class="d-flex justify-content-center mt-4">
+        <div class="col-9">
+          <div id="post"></div>
+        </div>
+      </div>
+    </div>
+    <!--/ main content/ -->
+
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="node_modules/axios/dist/axios.min.js"></script>
+    <script src="main.js"></script>
+
+    <script></script>
+  </body>
+</html>
