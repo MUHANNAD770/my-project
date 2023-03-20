@@ -1,5 +1,6 @@
 
 
+
 function getlogin() {
     let username = document.getElementById("username").value;
     let password = document.getElementById("password").value;
@@ -135,7 +136,7 @@ function getlogin() {
     axios
       .get(`https://tarmeezacademy.com/api/v1/posts?limit=2&page=${page}`)
       .then((response) => {
-        console.log(response.data.data);
+        
         const posts = response.data.data;
         last_page = response.data.meta.last_page;
         if (troo) {
@@ -159,12 +160,14 @@ function getlogin() {
 
       <div  class="card mt-3">
         <div class="card-header">
+        <span onclick="profileClick(${author.id})">
           <img
             class="rounded-circle border border-3"
             style="width: 70px"
             src="${author.profile_image}"
           />
           <b>${author.username}</b>
+          </span>
           ${ebtncont}
         </div>
         <div onclick="showPost(${post.id})"  class="card-body">
@@ -411,3 +414,130 @@ function getlogin() {
         getposts()
       });
   }
+
+
+
+  function profilelink(){
+    
+    let user = profileNav()
+    window.location = `profile.html?postID=${user.id}`
+  }
+
+
+  function profileClick(postID){
+    window.location = `profile.html?postID=${postID}`
+   
+   
+  }
+  function crentid(){
+    const urlparams = new URLSearchParams(window.location.search);
+    const id = urlparams.get("postID");
+    return id
+  }
+
+
+  
+  function gituser(){
+    
+    let id = crentid()
+    axios.get(`https://tarmeezacademy.com/api/v1/users/${id}`)
+    .then((response)=>{
+      
+      let user = response.data.data
+      document.getElementById('email').innerHTML = user.email
+      document.getElementById('namee').innerHTML= user.name
+      document.getElementById('usernamee').innerHTML = user.username
+      document.getElementById('image-user').src = user.profile_image
+      document.getElementById('post').innerHTML = user.posts_count
+      document.getElementById('commit').innerHTML = user.comments_count
+      
+    })
+  }
+
+ 
+  
+
+
+  function getuserpost() {
+    let id = crentid()
+    axios
+      .get(`https://tarmeezacademy.com/api/v1/users/${id}/posts`)
+      .then((response) => {
+        console.log(response.data.data);
+        const posts = response.data.data;
+        
+          document.getElementById("post-user").innerHTML = "";
+        
+
+        for (let post of posts) {
+          const author = post.author;
+          let user = profileNav()
+
+          let isMyPost = user != null && author.id == user.id
+          let ebtncont = ""
+          if(isMyPost){
+            ebtncont = `
+            <button onclick="deletePost('${encodeURIComponent(JSON.stringify(post))}')" class="btn btn-danger btn-sm  rounded-2" style=" float: right; margin-left: 5px;">delete</button>
+            <button onclick="editePost('${encodeURIComponent(JSON.stringify(post))}')" class="btn btn-secondary btn-sm  rounded-2" style=" float: right;">edite</button>
+            
+            `
+          }
+          let content = `
+
+      <div  class="card mt-3">
+        <div class="card-header">
+        
+          <img
+            class="rounded-circle border border-3"
+            style="width: 70px"
+            src="${author.profile_image}"
+          />
+          <b>${author.username}</b>
+        
+          ${ebtncont}
+        </div>
+        <div onclick="showPost(${post.id})"  class="card-body">
+          <img
+          style="height: 30rem"
+            class="w-100 "
+            src="${post.image}"
+          />
+          <h6>${post.created_at}</h6>
+          <h5 class="card-title">${post.title}</h5>
+          <p class="card-text">
+           ${post.body}
+          </p>
+          <hr />
+          <div>
+            <i class="bi bi-pen"></i>
+            <span>(${post.comments_count})
+               Comments
+               <span id="post-tags-${post.id}">
+
+
+               </span>
+              </span>
+          </div>
+        </div>
+      </div>
+
+        `;
+          document.getElementById("post-user").innerHTML += content;
+          let postTagId = `post-tags-${post.id}`;
+          document.getElementById(postTagId).innerHTML = "";
+          for (tag of post.tags) {
+            let tagcon = `
+          <button class="btn btn-sm rounded-5" style="background-color:gray;color:white">
+            ${tag.name}
+          </button>
+          `;
+            document.getElementById(postTagId).innerHTML += tagcon;
+          }
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+  gituser()
+  getuserpost()

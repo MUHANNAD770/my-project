@@ -38,6 +38,14 @@
       .card {
         cursor: pointer;
       }
+
+      .number-info {
+        font-weight: 100;
+      }
+      .number-info span {
+        font-size: x-large;
+        font-weight: bold;
+      }
     </style>
   </head>
   <body style="background-color: rgb(230, 225, 225)">
@@ -296,7 +304,12 @@
                     >
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">profile</a>
+                    <a
+                      style="cursor: pointer"
+                      class="nav-link"
+                      onclick="profilelink()"
+                      >profile</a
+                    >
                   </li>
                 </ul>
                 <div id="logeed" class="w-100 text-end">
@@ -346,26 +359,81 @@
     </div>
     <!--/  navbar container  /-->
 
-    <!--main content-->
+    <!--user content-->
     <div class="container" style="width: 70%">
       <div class="d-flex justify-content-center mt-4">
-        <div class="card-body">
-          <img class="w-100" src="./photo/pexels-christian-heitz-842711.jpg" />
-
-          <h5 class="card-title">Special title treatment</h5>
-          <p class="card-text">
-            With supporting text below as a natural lead-in to additional
-            content.
-          </p>
-          <hr />
-          <div>
-            <i class="bi bi-pen"></i>
-            <span>(3) Comments</span>
+        <div class="col-9">
+          <div class="card mt-3">
+            <div class="row">
+              <!-- user image -->
+              <div class="col-2">
+                <img
+                  id="image-user"
+                  style="height: 90px; width: 90px; border-radius: 50%"
+                  src="./photo/pro.png"
+                  alt=""
+                />
+              </div>
+              <!--/ user image /-->
+              <!--username-email-name-->
+              <div class="col-4 d-flex justify-content-around flex-column">
+                <div id="email">muhannad@gmail.com</div>
+                <div id="namee">muhannad</div>
+                <div id="usernamee">muhannad770</div>
+              </div>
+              <!--/ username-email-name /-->
+              <!--post & commit-->
+              <div class="col-4 d-flex justify-content-around flex-column">
+                <div class="number-info"><span id="post">13</span> Posts</div>
+                <div class="number-info">
+                  <span id="commit">33</span> Commit
+                </div>
+              </div>
+              <!--/ post & commit /-->
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <!--/ main content/ -->
+    <!--/ user content/ -->
+
+    <!--main content-->
+    <div class="container" style="width: 70%">
+      <div class="d-flex justify-content-center mt-4">
+        <div class="col-9">
+          <div id="post-user">
+            <div class="card mt-3">
+              <h5 class="card-header">
+                <img
+                  class="rounded-circle border border-3"
+                  style="width: 70px"
+                  src="./photo/pro.png"
+                />
+                <b>muhannad66</b>
+              </h5>
+              <div class="card-body">
+                <img
+                  class="w-100"
+                  src="./photo/pexels-christian-heitz-842711.jpg"
+                />
+
+                <h5 class="card-title">Special title treatment</h5>
+                <p class="card-text">
+                  With supporting text below as a natural lead-in to additional
+                  content.
+                </p>
+                <hr />
+                <div>
+                  <i class="bi bi-pen"></i>
+                  <span>(3) Comments</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--main content-->
 
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="node_modules/axios/dist/axios.min.js"></script>
